@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
+const uploadRoutes = require("./routes/upload");
 
 const authRoutes = require("./routes/auth");
 
@@ -15,12 +16,13 @@ app.use(cookieParser());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB Connected"))
+.catch((err) => console.log(err));
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/upload", uploadRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is running...");
